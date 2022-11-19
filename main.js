@@ -5,16 +5,9 @@ let dataNascita = document.getElementById("dataNascita")
 let email = document.getElementById("email")
 let password = document.getElementById("password")
 let btnRegistrati = document.getElementById("btnRegistrati")
-let btnConferma = document.getElementById("btnConferma")
 let myAlert = document.getElementById("my-modal")
 let myForm = document.getElementsByTagName("form")
 
-btnRegistrati.onclick = function () {
-    myForm.reportValidity();
-
-    if (myForm.checkValidity()) {
-        myAlert.removeAttribute("disabled")
-        btnRegistrati.click()
-    }
-
+myForm.submit = function () {
+    alert("Benvenuto gentile utene " + nome + " " + cognome + ", la registrazione è avvenuta con successo")
 }
