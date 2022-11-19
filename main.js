@@ -10,7 +10,11 @@ let myAlert = document.getElementById("my-modal")
 let myForm = document.getElementsByTagName("form")
 
 btnRegistrati.onclick = function () {
+    myForm.reportValidity();
+
     if (myForm.checkValidity()) {
         myAlert.removeAttribute("disabled")
+        btnRegistrati.click()
     }
+
 }
