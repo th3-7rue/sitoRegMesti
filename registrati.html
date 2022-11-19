@@ -11,10 +11,11 @@
 </head>
 
 <body>
-    <div
-        style="display:flex; flex-direction: column; gap: 10px; align-items: center; justify-content: center; padding: 10px;">
-        <h1>Registrazione</h1>
-        <form action="accedi.html" method="get">
+    <form action="accedi.html" method="get">
+        <div
+            style="display:flex; flex-direction: column; gap: 10px; align-items: center; justify-content: center; padding: 10px;">
+            <h1>Registrazione</h1>
+
             <div class="form-control" id="nome">
                 <label class="input-group input-group-vertical">
                     <span>Nome</span>
@@ -58,7 +59,7 @@
                 </label>
             </div>
             <label for="my-modal" class="btn" id="btnRegistrati">Registrati</label>
-            <input type="checkbox" id="my-modal" class="modal-toggle" />
+            <input type="checkbox" id="my-modal" class="modal-toggle" disabled />
             <div class="modal">
                 <div class="modal-box">
                     <h3 class="font-bold text-lg">Registrazione avvenuta con successo</h3>
@@ -69,8 +70,9 @@
                     </div>
                 </div>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
+
 
 
 </body>

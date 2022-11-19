@@ -7,7 +7,10 @@ let password = document.getElementById("password")
 let btnRegistrati = document.getElementById("btnRegistrati")
 let btnConferma = document.getElementById("btnConferma")
 let myAlert = document.getElementById("my-modal")
+let myForm = document.getElementsByTagName("form")
 
-btnConferma.onclick = function () {
-    
+btnRegistrati.onclick = function () {
+    if (myForm.checkValidity()) {
+        myAlert.removeAttribute("disabled")
+    }
 }
