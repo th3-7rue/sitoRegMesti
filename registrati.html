@@ -14,7 +14,7 @@
     <div
         style="display:flex; flex-direction: column; gap: 10px; align-items: center; justify-content: center; padding: 10px;">
         <h1>Registrazione</h1>
-        <form action="" method="get" style=" ">
+        <form action="accedi.html" method="get">
             <div class="form-control" id="nome">
                 <label class="input-group input-group-vertical">
                     <span>Nome</span>
@@ -57,21 +57,22 @@
                     <input type="password" placeholder="Una password sicura" class="input input-bordered" required />
                 </label>
             </div>
-            <button type="submit" for="my-modal" class="btn" id="btnRegistrati">Registrati</button>
+            <label for="my-modal" class="btn" id="btnRegistrati">Registrati</label>
+            <input type="checkbox" id="my-modal" class="modal-toggle" />
+            <div class="modal">
+                <div class="modal-box">
+                    <h3 class="font-bold text-lg">Registrazione avvenuta con successo</h3>
+                    <p class="py-4">Il tuo account è stato creato e le tue informazioni sono state registrate
+                    </p>
+                    <div class="modal-action">
+                        <button type="submit" class="btn" id="btnConferma">Ok</button>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
 
-    <input type="checkbox" id="my-modal" class="modal-toggle" />
-    <div class="modal">
-        <div class="modal-box">
-            <h3 class="font-bold text-lg">Registrazione avvenuta con successo</h3>
-            <p class="py-4">Il tuo account è stato creato e le tue informazioni sono state registrate
-            </p>
-            <div class="modal-action">
-                <label for="my-modal" class="btn" id="btnConferma">Ok</label>
-            </div>
-        </div>
-    </div>
+
 </body>
 
 </html>
