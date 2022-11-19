@@ -7,8 +7,6 @@ let password = document.getElementById("password")
 let btnRegistrati = document.getElementById("btnRegistrati")
 let myAlert = document.getElementById("my-modal")
 let myForm = document.getElementsByTagName("form")
-function logSubmit(event) {
-    document.getElementById("formino").innerHTML = "benvenuto";
-    event.preventDefault();
+myForm.onsubmit = function () {
+    alert("i")
 }
-myForm.addEventListener('submit', logSubmit);
