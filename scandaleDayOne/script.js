@@ -134,16 +134,17 @@ const calcolaCodiceGiorno = (data, sesso) => {
     return sesso === "M" ? giorno : parseInt(giorno) + 40;
 };
 // scrivi funzione calcola codice comune
+// Modify the calcolaCodiceComune function to correctly calculate the codice comune
 const calcolaCodiceComune = (comune) => {
-    // calcola codice comune
-    // cerca comune
-    const codiceComune = comuni.find((item) => {
-        return item.includes(comune.toUpperCase());
-    });
+    // Find the index of the comune name in the comuniNomi array (case-insensitive)
+    const index = comuni.findIndex((nome) =>
+        nome.toUpperCase() === comune.toUpperCase()
+    );
 
-    // restituisci codice comune
-    return codiceComune;
+    // If the comune name is found, use the corresponding code from comuniCodici; otherwise, return an empty string
+    return index !== -1 ? codiceComune[index] : "";
 };
+
 // scrivi funzione calcola codice controllo
 const calcolaCodiceControllo = (
     codiceCognome,
