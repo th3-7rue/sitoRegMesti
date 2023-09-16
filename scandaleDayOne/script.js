@@ -146,6 +146,7 @@ const calcolaCodiceComune = (comune) => {
 };
 
 // scrivi funzione calcola codice controllo
+// Modify the calcolaCodiceControllo function to correctly calculate the codice di controllo
 const calcolaCodiceControllo = (
     codiceCognome,
     codiceNome,
@@ -154,18 +155,40 @@ const calcolaCodiceControllo = (
     codiceGiorno,
     codiceComune
 ) => {
-    // calcola codice controllo
-    const codiceControllo =
-        codiceCognome[0] +
-        codiceCognome[1] +
-        codiceNome[0] +
-        codiceNome[1] +
-        codiceAnno +
-        codiceMese +
-        codiceGiorno +
-        codiceComune;
-    // restituisci codice controllo
-    return codiceControllo;
+    const characterSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    // Create a mapping of characters to their positions
+    const charMap = {};
+    for (let i = 0; i < characterSet.length; i++) {
+        charMap[characterSet.charAt(i)] = i;
+    }
+
+    // Concatenate all the codes
+    const combinedCodes = codiceCognome + codiceNome + codiceAnno + codiceMese + codiceGiorno + codiceComune;
+
+    // Calculate the codice di controllo
+    let sum = 0;
+    for (let i = 0; i < combinedCodes.length; i++) {
+        let char = combinedCodes.charAt(i);
+
+        if (i % 2 === 0) {
+            // For even-indexed characters (0-based), double the value and add it to the sum
+            let value = charMap[char] * 2;
+            if (value > 9) {
+                value -= 9;
+            }
+            sum += value;
+        } else {
+            // For odd-indexed characters, add the value to the sum
+            sum += charMap[char];
+        }
+    }
+
+    const remainder = sum % 26;
+    const controlChar = characterSet.charAt(remainder);
+
+    // restituisci codice di controllo
+    return controlChar;
 };
 // scrivi array comuni italiani
 var comuni = ["ABANO TERME",
