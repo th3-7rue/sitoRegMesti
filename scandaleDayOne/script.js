@@ -26,8 +26,8 @@ btn.addEventListener("click", () => {
     const nomeValue = nome.value.toUpperCase();
     const cognomeValue = cognome.value.toUpperCase();
     const sessoValue = sesso.value;
-    const dataValue = data.value;
     const comuneValue = comune.value.toUpperCase();
+    const dataValue = `${anno.value}-${mese.value}-${giorno.value}`;
     const codiceFiscale = calcolaCodiceFiscale(
         nomeValue,
         cognomeValue,
@@ -64,14 +64,19 @@ const calcolaCodiceFiscale = (nome, cognome, sesso, data, comune) => {
     return codiceCognome + codiceNome + codiceAnno + codiceMese + codiceGiorno + codiceComune + codiceControllo;
 };
 // scrivi funzione calcola codice cognome
+// Modify the calcolaCodiceCognome function to correctly calculate the codiceCognome
 const calcolaCodiceCognome = (cognome) => {
-    // calcola codice cognome
-    const consonanti = getConsonanti(cognome);
-    const vocali = getVocali(cognome);
-    const codiceCognome = getLettere(cognome, consonanti, vocali);
+    // Remove vowels from the cognome
+    const cognomeWithoutVowels = getConsonanti(cognome);
+
+    // If cognomeWithoutVowels has at least three consonants, take the first three.
+    // Otherwise, pad it with 'X' characters to reach a length of 3.
+    const codiceCognome = cognomeWithoutVowels.slice(0, 3).padEnd(3, 'X');
+
     // restituisci codice cognome
     return codiceCognome;
 };
+
 // scrivi funzione get consonanti
 const getConsonanti = (cognome) => {
     // restituisci consonanti
@@ -92,14 +97,19 @@ const getLettere = (cognome, consonanti, vocali) => {
     }
 };
 // scrivi funzione calcola codice nome
+// Modify the calcolaCodiceNome function to correctly calculate the codiceNome
 const calcolaCodiceNome = (nome) => {
-    // calcola codice nome
-    const consonanti = getConsonanti(nome);
-    const vocali = getVocali(nome);
-    const codiceNome = getLettere(nome, consonanti, vocali);
+    // Remove vowels from the name
+    const nomeWithoutVowels = getConsonanti(nome);
+
+    // If nomeWithoutVowels has at least three consonants, take the first three.
+    // Otherwise, pad it with 'X' characters to reach a length of 3.
+    const codiceNome = nomeWithoutVowels.slice(0, 3).padEnd(3, 'X');
+
     // restituisci codice nome
     return codiceNome;
 };
+
 // scrivi funzione calcola codice anno
 const calcolaCodiceAnno = (data) => {
     // calcola codice anno
