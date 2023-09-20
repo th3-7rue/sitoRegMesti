@@ -225,6 +225,9 @@ controlloCF = (cf) => {
     let dispari = "";
     let controllo = "";
     pari = cf[1] + cf[3] + cf[5] + cf[7] + cf[9] + cf[11] + cf[13];
+    if (cf[15] != undefined) {
+        pari += cf[15];
+    }
     dispari = cf[0] + cf[2] + cf[4] + cf[6] + cf[8] + cf[10] + cf[12] + cf[14];
     //console.log(pari);
     //console.log(dispari);
@@ -265,10 +268,9 @@ controlloCF = (cf) => {
     let alfabeto = ["A", "B", "C", "D", "E", "F", "G", "H", "I",
         "J", "K", "L", "M", "N", "O", "P", "Q",
         "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-    let lettera = "";
     for (let i = 0; i < alfabeto.length; i++) {
         if (resto == i) {
-            lettera = alfabeto[i];
+            controllo = alfabeto[i];
         }
     }
 
@@ -283,7 +285,12 @@ btn.addEventListener("click", () => {
     let giornoSessoCF = calcolaGiornoSesso(giorno.value, sesso.value);
     let comuneCF = calcolaComune(comune.value);
     cf = cognomeCF + nomeCF + annoMeseCF + giornoSessoCF + comuneCF;
-    cf += controlloCF(cf);
+    controllo = controlloCF(cf);
+    // ricalcola controllo una seconda volta
+    cf2 = cf + controllo;
+    controllo2 = controlloCF(cf2);
+    cf += controllo2;
+
     risultato.innerHTML = cf;
 });
 
