@@ -16098,17 +16098,3 @@ var codiceComune = ["A001",
     "M203",
     "M204",]
 console.log("ok")
-// mesi
-var mesi = ["Gennaio",
-    "Febbraio",
-    "Marzo",
-    "Aprile",
-    "Maggio",
-    "Giugno",
-    "Luglio",
-    "Agosto",
-    "Settembre",
-    "Ottobre",
-    "Novembre",
-    "Dicembre",]
-var letteraMesi = ["A", "B", "C", "D", "E", "H", "L", "M", "P", "R", "S", "T"]
