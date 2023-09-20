@@ -33,7 +33,7 @@ getConsonanti = (string) => {
         }
     }
 
-    console.log(consonanti);
+    //console.log(consonanti);
     return consonanti;
 };
 getVocali = (string) => {
@@ -44,7 +44,7 @@ getVocali = (string) => {
         }
 
     }
-    console.log(vocali);
+    //console.log(vocali);
     return vocali;
 };
 calcolaCognome = (string) => {
@@ -140,9 +140,42 @@ calcolaAnnoMese = (anno, mese) => {
 
 Posizioni 10-11: giorno di nascita e sesso (due cifre)
 Si prendono le due cifre del giorno di nascita (se è compreso tra 1 e 9 si pone uno zero come prima cifra); per i soggetti di sesso femminile, a tale cifra va sommato il numero 40. In questo modo il campo contiene la doppia informazione giorno di nascita e sesso. Avremo pertanto la seguente casistica: gli uomini avranno il giorno con cifra da 01 a 31, mentre per le donne la cifra relativa al giorno sarà da 41 a 71.
+*/
+
+calcolaGiornoSesso = (giorno, sesso) => {
+    let giornoSesso = "";
+    if (giorno < 10) {
+        giornoSesso = "0" + giorno;
+    } else {
+        giornoSesso = giorno;
+    }
+    if (sesso == "femmina") {
+        giornoSesso = parseInt(giornoSesso) + 40;
+    }
+    return giornoSesso;
+};
+
+/*
 Posizioni 12-15: comune (o Stato) di nascita (quattro caratteri alfanumerici)
 Per identificare il comune di nascita si utilizza il codice impropriamente detto Belfiore, composto da una lettera e tre cifre numeriche. Per i nati al di fuori del territorio italiano, sia che si tratti di cittadini italiani nati all'estero, oppure stranieri, si considera lo stato estero di nascita: in tal caso la sigla inizia con la lettera Z seguita dal numero identificativo dello Stato.
 Il codice Belfiore è lo stesso usato per il nuovo Codice catastale.
+*/
+
+calcolaComune = (comune) => {
+    let comuneCF = "";
+    comune = comune.toUpperCase();
+    comune = comune.replace(/\s/g, "");
+    // cerca comune in array e ritorna codice comune
+    for (let i = 0; i < comuni.length; i++) {
+        if (comune == comuni[i]) {
+            comuneCF = codiceComune[i];
+        }
+    }
+    //console.log(comuneCF);
+    return comuneCF;
+};
+
+/*
 Posizione 16: carattere di controllo (una lettera)
 A partire dai quindici caratteri alfanumerici ricavati in precedenza, si determina il carattere di controllo (indicato a volte come CIN, Control Internal Number) in base a un particolare algoritmo che opera in questo modo:
 si dà un numero ad ogni carattere alfanumerico, partendo da 1 (in informatica normalmente si parte da 0): si mettono da una parte quelli il cui numero è dispari e da un'altra quelli pari;
@@ -187,16 +220,70 @@ Cifra	Lettera	Cifra	Lettera	Cifra	Lettera
 3	P	7	T		
 Dopo la sostituzione, il carattere di controllo deve essere ricalcolato.
 */
+controlloCF = (cf) => {
+    let pari = "";
+    let dispari = "";
+    let controllo = "";
+    pari = cf[1] + cf[3] + cf[5] + cf[7] + cf[9] + cf[11] + cf[13];
+    dispari = cf[0] + cf[2] + cf[4] + cf[6] + cf[8] + cf[10] + cf[12] + cf[14];
+    //console.log(pari);
+    //console.log(dispari);
+    // converti in numeri
+    let pariNum = "";
+    let dispariNum = "";
+    // cifre + alfabeto
+    var caratteri = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H",
+        "I", "J", "K", "L", "M", "N", "O", "P", "Q",
+        "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+    var numeriDispari = [1, 0, 5, 7, 9, 13, 15, 17, 19, 21, 1, 0, 5, 7, 9, 13, 15, 17, 19, 21, 2, 4, 18, 20, 11, 3, 3, 8, 12, 14, 16, 10, 22, 25, 24, 23];
+    var numeriPari = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5,
+        6, 7, 8, 9, 10, 11, 12, 13, 14,
+        15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
+    for (let i = 0; i < pari.length; i++) {
+        for (let j = 0; j < caratteri.length; j++) {
+            if (pari[i] == caratteri[j]) {
+                pariNum += numeriPari[j];
+            }
+        }
+    }
+    for (let i = 0; i < dispari.length; i++) {
+        for (let j = 0; j < caratteri.length; j++) {
+            if (dispari[i] == caratteri[j]) {
+                dispariNum += numeriDispari[j];
+            }
+        }
+    }
+    console.log(pariNum);
+    console.log(dispariNum);
+    // somma pari e dispari
+    let somma = parseInt(pariNum) + parseInt(dispariNum);
+    console.log(somma);
+    // calcola resto
+    let resto = somma % 26;
+    console.log(resto);
+    // trova lettera corrispondente
+    let alfabeto = ["A", "B", "C", "D", "E", "F", "G", "H", "I",
+        "J", "K", "L", "M", "N", "O", "P", "Q",
+        "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+    let lettera = "";
+    for (let i = 0; i < alfabeto.length; i++) {
+        if (resto == i) {
+            lettera = alfabeto[i];
+        }
+    }
+
+    return controllo;
+};
 // unisci stringhe e stampa cf
 btn.addEventListener("click", () => {
     let cf = "";
     let cognomeCF = calcolaCognome(cognome.value);
     let nomeCF = calcolaNome(nome.value);
     let annoMeseCF = calcolaAnnoMese(anno.value, mese.value);
-    let giornoCF = 0;
-    let sessoCF = 0;
-    let comuneCF = 0;
-    cf = cognomeCF + nomeCF + annoMeseCF + giornoCF + sessoCF + comuneCF;
+    let giornoSessoCF = calcolaGiornoSesso(giorno.value, sesso.value);
+    let comuneCF = calcolaComune(comune.value);
+    cf = cognomeCF + nomeCF + annoMeseCF + giornoSessoCF + comuneCF;
+    cf += controlloCF(cf);
     risultato.innerHTML = cf;
 });
 
