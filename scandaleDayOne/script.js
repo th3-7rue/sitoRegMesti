@@ -25,28 +25,32 @@ for (let i = 1900; i <= 2021; i++) {
 
 Posizioni 1-3: cognome (tre lettere)
 Vengono prese le consonanti del cognome o dei cognomi (se ve ne è più di uno) nel loro ordine (primo cognome, di seguito il secondo e così via). Se le consonanti sono insufficienti, si prelevano anche le vocali (se non sono sufficienti le consonanti, si prelevano la prima, la seconda e la terza vocale), sempre nel loro ordine; comunque, le vocali vengono riportate dopo le consonanti (per esempio: Rosi → RSO). Nel caso in cui un cognome abbia meno di tre lettere, la parte di codice viene completata aggiungendo la lettera X (per esempio: Fo → FOX). Per le donne, viene preso in considerazione il solo cognome da nubile.*/
-vocali = ["A", "E", "I", "O", "U"];
 getConsonanti = (string) => {
     let consonanti = "";
     for (let i = 0; i < string.length; i++) {
-        if (!vocali.includes(string[i])) {
+        if (string[i] != "a" && string[i] != "e" && string[i] != "i" && string[i] != "o" && string[i] != "u") {
             consonanti += string[i];
         }
     }
+
+    console.log(consonanti);
     return consonanti;
 };
 getVocali = (string) => {
     let vocali = "";
     for (let i = 0; i < string.length; i++) {
-        if (vocali.includes(string[i])) {
+        if (string[i] == "a" || string[i] == "e" || string[i] == "i" || string[i] == "o" || string[i] == "u") {
             vocali += string[i];
         }
+
     }
+    console.log(vocali);
     return vocali;
 };
 calcolaCognome = (string) => {
     // togli spazi
     string = string.replace(/\s/g, "");
+    string.toUpperCase();
     let cognome = "";
     let consonanti = getConsonanti(string);
     let vocali = getVocali(string);
@@ -76,6 +80,8 @@ Vengono prese le consonanti del nome o dei nomi (se ve ne è più di uno) nel lo
 calcolaNome = (string) => {
     // togli spazi
     string = string.replace(/\s/g, "");
+    string.toUpperCase();
+
     let nome = "";
     let consonanti = getConsonanti(string);
     let vocali = getVocali(string);
@@ -186,12 +192,11 @@ btn.addEventListener("click", () => {
     let cf = "";
     let cognomeCF = calcolaCognome(cognome.value);
     let nomeCF = calcolaNome(nome.value);
-    let annoCF = 0;
-    let meseCF = 0;
+    let annoMeseCF = calcolaAnnoMese(anno.value, mese.value);
     let giornoCF = 0;
     let sessoCF = 0;
     let comuneCF = 0;
-    cf = cognomeCF + nomeCF + annoCF + meseCF + giornoCF + sessoCF + comuneCF;
+    cf = cognomeCF + nomeCF + annoMeseCF + giornoCF + sessoCF + comuneCF;
     risultato.innerHTML = cf;
 });
 
