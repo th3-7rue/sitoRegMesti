@@ -21,175 +21,180 @@ for (let i = 1; i <= 12; i++) {
 for (let i = 1900; i <= 2021; i++) {
     anno.innerHTML += `<option value="${i}">${i}</option>`;
 }
-// calcola codice fiscale
-btn.addEventListener("click", () => {
-    const nomeValue = nome.value.toUpperCase();
-    const cognomeValue = cognome.value.toUpperCase();
-    const sessoValue = sesso.value;
-    const comuneValue = comune.value.toUpperCase();
-    const dataValue = `${anno.value}-${mese.value}-${giorno.value}`;
-    const codiceFiscale = calcolaCodiceFiscale(
-        nomeValue,
-        cognomeValue,
-        sessoValue,
-        dataValue,
-        comuneValue
-    );
-    risultato.innerHTML = codiceFiscale;
-});
-// scrivi funzione calcola codice fiscale
-const calcolaCodiceFiscale = (nome, cognome, sesso, data, comune) => {
-    // calcola codice cognome
-    const codiceCognome = calcolaCodiceCognome(cognome);
-    // calcola codice nome
-    const codiceNome = calcolaCodiceNome(nome);
-    // calcola codice anno
-    const codiceAnno = calcolaCodiceAnno(data);
-    // calcola codice mese
-    const codiceMese = calcolaCodiceMese(data);
-    // calcola codice giorno
-    const codiceGiorno = calcolaCodiceGiorno(data, sesso);
-    // calcola codice comune
-    const codiceComune = calcolaCodiceComune(comune);
-    // calcola codice controllo
-    const codiceControllo = calcolaCodiceControllo(
-        codiceCognome,
-        codiceNome,
-        codiceAnno,
-        codiceMese,
-        codiceGiorno,
-        codiceComune
-    );
-    // restituisci codice fiscale
-    return codiceCognome + codiceNome + codiceAnno + codiceMese + codiceGiorno + codiceComune + codiceControllo;
-};
-// scrivi funzione calcola codice cognome
-// Modify the calcolaCodiceCognome function to correctly calculate the codiceCognome
-const calcolaCodiceCognome = (cognome) => {
-    // Remove vowels from the cognome
-    const cognomeWithoutVowels = getConsonanti(cognome);
+/*Il codice fiscale delle persone fisiche è costituito da sedici caratteri alfanumerici, ricavati in linea generale secondo l'algoritmo illustrato di seguito. Con le posizioni indicate da sinistra verso destra
 
-    // If cognomeWithoutVowels has at least three consonants, take the first three.
-    // Otherwise, pad it with 'X' characters to reach a length of 3.
-    const codiceCognome = cognomeWithoutVowels.slice(0, 3).padEnd(3, 'X');
-
-    // restituisci codice cognome
-    return codiceCognome;
-};
-
-// scrivi funzione get consonanti
-const getConsonanti = (cognome) => {
-    // restituisci consonanti
-    return cognome.replace(/[aeiou]/gi, "");
-};
-// scrivi funzione get vocali
-const getVocali = (cognome) => {
-    // restituisci vocali
-    return cognome.replace(/[^aeiou]/gi, "");
-};
-// scrivi funzione get lettere
-const getLettere = (cognome, consonanti, vocali) => {
-    // restituisci lettere
-    if (consonanti.length > 3) {
-        return consonanti[0] + consonanti[2] + consonanti[3];
-    } else {
-        return consonanti + vocali + "X";
-    }
-};
-// scrivi funzione calcola codice nome
-// Modify the calcolaCodiceNome function to correctly calculate the codiceNome
-const calcolaCodiceNome = (nome) => {
-    // Remove vowels from the name
-    const nomeWithoutVowels = getConsonanti(nome);
-
-    // If nomeWithoutVowels has at least three consonants, take the first three.
-    // Otherwise, pad it with 'X' characters to reach a length of 3.
-    const codiceNome = nomeWithoutVowels.slice(0, 3).padEnd(3, 'X');
-
-    // restituisci codice nome
-    return codiceNome;
-};
-
-// scrivi funzione calcola codice anno
-const calcolaCodiceAnno = (data) => {
-    // calcola codice anno
-    const anno = data.slice(2, 4);
-    // restituisci codice anno
-    return anno;
-};
-// scrivi funzione calcola codice mese
-const calcolaCodiceMese = (data) => {
-    // calcola codice mese
-    const mese = data.slice(5, 7) - 1;
-    // restituisci codice mese da letteraMesi
-    return letteraMesi[mese];
-
-
-};
-// scrivi funzione calcola codice giorno
-const calcolaCodiceGiorno = (data, sesso) => {
-    // calcola codice giorno
-    const giorno = data.slice(8, 10);
-    // restituisci codice giorno
-    return sesso === "M" ? giorno : parseInt(giorno) + 40;
-};
-// scrivi funzione calcola codice comune
-// Modify the calcolaCodiceComune function to correctly calculate the codice comune
-const calcolaCodiceComune = (comune) => {
-    // Find the index of the comune name in the comuniNomi array (case-insensitive)
-    const index = comuni.findIndex((nome) =>
-        nome.toUpperCase() === comune.toUpperCase()
-    );
-
-    // If the comune name is found, use the corresponding code from comuniCodici; otherwise, return an empty string
-    return index !== -1 ? codiceComune[index] : "";
-};
-
-// scrivi funzione calcola codice controllo
-// Modify the calcolaCodiceControllo function to correctly calculate the codice di controllo
-const calcolaCodiceControllo = (
-    codiceCognome,
-    codiceNome,
-    codiceAnno,
-    codiceMese,
-    codiceGiorno,
-    codiceComune
-) => {
-    const characterSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-    // Create a mapping of characters to their positions
-    const charMap = {};
-    for (let i = 0; i < characterSet.length; i++) {
-        charMap[characterSet.charAt(i)] = i;
-    }
-
-    // Concatenate all the codes
-    const combinedCodes = codiceCognome + codiceNome + codiceAnno + codiceMese + codiceGiorno + codiceComune;
-
-    // Calculate the codice di controllo
-    let sum = 0;
-    for (let i = 0; i < combinedCodes.length; i++) {
-        let char = combinedCodes.charAt(i);
-
-        if (i % 2 === 0) {
-            // For even-indexed characters (0-based), double the value and add it to the sum
-            let value = charMap[char] * 2;
-            if (value > 9) {
-                value -= 9;
-            }
-            sum += value;
-        } else {
-            // For odd-indexed characters, add the value to the sum
-            sum += charMap[char];
+Posizioni 1-3: cognome (tre lettere)
+Vengono prese le consonanti del cognome o dei cognomi (se ve ne è più di uno) nel loro ordine (primo cognome, di seguito il secondo e così via). Se le consonanti sono insufficienti, si prelevano anche le vocali (se non sono sufficienti le consonanti, si prelevano la prima, la seconda e la terza vocale), sempre nel loro ordine; comunque, le vocali vengono riportate dopo le consonanti (per esempio: Rosi → RSO). Nel caso in cui un cognome abbia meno di tre lettere, la parte di codice viene completata aggiungendo la lettera X (per esempio: Fo → FOX). Per le donne, viene preso in considerazione il solo cognome da nubile.*/
+vocali = ["A", "E", "I", "O", "U"];
+getConsonanti = (string) => {
+    let consonanti = "";
+    for (let i = 0; i < string.length; i++) {
+        if (!vocali.includes(string[i])) {
+            consonanti += string[i];
         }
     }
-
-    const remainder = sum % 26;
-    const controlChar = characterSet.charAt(remainder);
-
-    // restituisci codice di controllo
-    return controlChar;
+    return consonanti;
 };
+getVocali = (string) => {
+    let vocali = "";
+    for (let i = 0; i < string.length; i++) {
+        if (vocali.includes(string[i])) {
+            vocali += string[i];
+        }
+    }
+    return vocali;
+};
+calcolaCognome = (string) => {
+    // togli spazi
+    string = string.replace(/\s/g, "");
+    let cognome = "";
+    let consonanti = getConsonanti(string);
+    let vocali = getVocali(string);
+    if (consonanti.length >= 3) {
+        cognome = consonanti[0] + consonanti[1] + consonanti[2];
+    } else if (consonanti.length == 2) {
+        cognome = consonanti[0] + consonanti[1] + vocali[0];
+    } else if (consonanti.length == 1) {
+        cognome = consonanti[0] + vocali[0] + vocali[1];
+    } else if (consonanti.length == 0) {
+        cognome = vocali[0] + vocali[1] + vocali[2];
+    }
+    // se il cognome è più corto di 3 lettere aggiungi X
+    if (string.length < 3) {
+        cognome += "X";
+    }
+
+    return cognome.toUpperCase();
+};
+
+
+/*
+Posizioni 4-6: nome (tre lettere)
+Vengono prese le consonanti del nome o dei nomi (se ve ne è più di uno) nel loro ordine (primo nome, di seguito il secondo e così via) in questo modo: se il nome contiene quattro o più consonanti, si scelgono la prima, la terza e la quarta (per esempio: Gianfranco → GFR), altrimenti le prime tre in ordine (per esempio: Tiziana → TZN). Se il nome non ha consonanti a sufficienza, si prendono anche le vocali; in ogni caso le vocali vengono riportate dopo le consonanti (per esempio: Luca → LCU). Nel caso in cui il nome abbia meno di tre lettere, la parte di codice viene completata aggiungendo la lettera X.
+*/
+
+calcolaNome = (string) => {
+    // togli spazi
+    string = string.replace(/\s/g, "");
+    let nome = "";
+    let consonanti = getConsonanti(string);
+    let vocali = getVocali(string);
+    if (consonanti.length >= 4) {
+        nome = consonanti[0] + consonanti[2] + consonanti[3];
+    } else if (consonanti.length == 3) {
+        nome = consonanti[0] + consonanti[1] + consonanti[2];
+    } else if (consonanti.length == 2) {
+        nome = consonanti[0] + consonanti[1] + vocali[0];
+    } else if (consonanti.length == 1) {
+        nome = consonanti[0] + vocali[0] + vocali[1];
+    } else if (consonanti.length == 0) {
+        nome = vocali[0] + vocali[1] + vocali[2];
+    }
+    // se il nome è più corto di 3 lettere aggiungi X
+    if (string.length < 3) {
+        nome += "X";
+    }
+    return nome.toUpperCase();
+};
+
+/*
+Posizioni 7-9: anno e mese di nascita (tre caratteri alfanumerici)
+Anno di nascita (due cifre): si prendono le ultime due cifre dell'anno di nascita;
+Mese di nascita (una lettera): a ogni mese dell'anno viene associata una lettera in base a questa tabella:
+Lettera	Mese	Lettera	Mese	Lettera	Mese
+A	gennaio	E	maggio	P	settembre
+B	febbraio	H	giugno	R	ottobre
+C	marzo	L	luglio	S	novembre
+D	aprile	M	agosto	T	dicembre
+Le lettere sono state scelte in modo da evitare quelle possibilmente equivoche. Sono state escluse:
+
+F (simile a E)
+
+G (simile a C)
+
+I (simile a 1)
+
+N (simile a M)
+
+O e Q (simili 0)
+
+
+Questa cosa non avviene nel carattere di controllo, dove questo accorgimento non è necessario.*/
+
+calcolaAnnoMese = (anno, mese) => {
+    let annoMese = "";
+    anno = anno.toString();
+    annoMese = anno[2] + anno[3];
+    letteraMese = ["A", "B", "C", "D", "E", "H", "L", "M", "P", "R", "S", "T"];
+    annoMese += letteraMese[mese - 1];
+    return annoMese;
+};
+
+/*
+
+Posizioni 10-11: giorno di nascita e sesso (due cifre)
+Si prendono le due cifre del giorno di nascita (se è compreso tra 1 e 9 si pone uno zero come prima cifra); per i soggetti di sesso femminile, a tale cifra va sommato il numero 40. In questo modo il campo contiene la doppia informazione giorno di nascita e sesso. Avremo pertanto la seguente casistica: gli uomini avranno il giorno con cifra da 01 a 31, mentre per le donne la cifra relativa al giorno sarà da 41 a 71.
+Posizioni 12-15: comune (o Stato) di nascita (quattro caratteri alfanumerici)
+Per identificare il comune di nascita si utilizza il codice impropriamente detto Belfiore, composto da una lettera e tre cifre numeriche. Per i nati al di fuori del territorio italiano, sia che si tratti di cittadini italiani nati all'estero, oppure stranieri, si considera lo stato estero di nascita: in tal caso la sigla inizia con la lettera Z seguita dal numero identificativo dello Stato.
+Il codice Belfiore è lo stesso usato per il nuovo Codice catastale.
+Posizione 16: carattere di controllo (una lettera)
+A partire dai quindici caratteri alfanumerici ricavati in precedenza, si determina il carattere di controllo (indicato a volte come CIN, Control Internal Number) in base a un particolare algoritmo che opera in questo modo:
+si dà un numero ad ogni carattere alfanumerico, partendo da 1 (in informatica normalmente si parte da 0): si mettono da una parte quelli il cui numero è dispari e da un'altra quelli pari;
+fatto questo, i caratteri vengono convertiti in valori numerici secondo le seguenti tabelle:
+CARATTERI ALFANUMERICI DISPARI
+Carattere	Valore	Carattere	Valore	Carattere	Valore	Carattere	Valore
+0	1	9	21	I	19	R	8
+1	0	A	1	J	21	S	12
+2	5	B	0	K	2	T	14
+3	7	C	5	L	4	U	16
+4	9	D	7	M	18	V	10
+5	13	E	9	N	20	W	22
+6	15	F	13	O	11	X	25
+7	17	G	15	P	3	Y	24
+8	19	H	17	Q	6	Z	23
+CARATTERI ALFANUMERICI PARI
+Carattere	Valore	Carattere	Valore	Carattere	Valore	Carattere	Valore
+0	0	9	9	I	8	R	17
+1	1	A	0	J	9	S	18
+2	2	B	1	K	10	T	19
+3	3	C	2	L	11	U	20
+4	4	D	3	M	12	V	21
+5	5	E	4	N	13	W	22
+6	6	F	5	O	14	X	23
+7	7	G	6	P	15	Y	24
+8	8	H	7	Q	16	Z	25
+a questo punto, i valori che si ottengono dai caratteri alfanumerici pari e dispari vanno sommati tra di loro e il risultato va diviso per 26; il resto della divisione fornirà il codice identificativo, ottenuto dalla seguente tabella di conversione:
+RESTO
+Resto	Lettera	Resto	Lettera	Resto	Lettera	Resto	Lettera
+0	A	7	H	14	O	21	V
+1	B	8	I	15	P	22	W
+2	C	9	J	16	Q	23	X
+3	D	10	K	17	R	24	Y
+4	E	11	L	18	S	25	Z
+5	F	12	M	19	T		
+6	G	13	N	20	U		
+Due diverse persone potrebbero avere uguali tutte e sedici le lettere/cifre generate usando questo schema (omocodia). In questo caso, l'Agenzia delle Entrate provvede a sostituire sistematicamente i soli caratteri numerici (a partire dal carattere numerico più a destra) con una lettera, secondo la seguente tabella di corrispondenza:
+Cifra	Lettera	Cifra	Lettera	Cifra	Lettera
+0	L	4	Q	8	U
+1	M	5	R	9	V
+2	N	6	S		
+3	P	7	T		
+Dopo la sostituzione, il carattere di controllo deve essere ricalcolato.
+*/
+// unisci stringhe e stampa cf
+btn.addEventListener("click", () => {
+    let cf = "";
+    let cognomeCF = calcolaCognome(cognome.value);
+    let nomeCF = calcolaNome(nome.value);
+    let annoCF = 0;
+    let meseCF = 0;
+    let giornoCF = 0;
+    let sessoCF = 0;
+    let comuneCF = 0;
+    cf = cognomeCF + nomeCF + annoCF + meseCF + giornoCF + sessoCF + comuneCF;
+    risultato.innerHTML = cf;
+});
+
 // scrivi array comuni italiani
 var comuni = ["ABANO TERME",
     "ABBADIA CERRETO",
