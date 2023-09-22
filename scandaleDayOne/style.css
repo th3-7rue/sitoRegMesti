@@ -1,0 +1,48 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5298bac0-b8bf-4c80-af67-725c1272dbb0/de4eftm-c1f1d646-3e0b-4fb8-87ce-de0da92ca461.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzUyOThiYWMwLWI4YmYtNGM4MC1hZjY3LTcyNWMxMjcyZGJiMFwvZGU0ZWZ0bS1jMWYxZDY0Ni0zZTBiLTRmYjgtODdjZS1kZTBkYTkyY2E0NjEuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.TEvA1YCTKuuC3LPULaRqqsJn4pslxbpQ6W3UOCU2iww");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    height: 100vh;
+    width: 100vw;
+    color: #f5f5f5;
+    overflow-x: hidden;
+}
+
+div.form-center {
+    margin: auto;
+    width: 50%;
+    padding: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background-color: #0000006c;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+div.form-center input,
+select {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #f5f5f5;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #000;
+}
+
+button {
+    background-color: #f5f5f5;
+    border: none;
+
+}
+
+button:hover {
+    background-color: #d43636;
+    color: #fff;
+    cursor: pointer;
+}

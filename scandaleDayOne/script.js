@@ -283,7 +283,7 @@ btn.addEventListener("click", () => {
     controllo = controlloCF(cf);
     cf += controllo;
 
-    risultato.innerHTML = cf;
+    risultato.innerHTML += cf;
 });
 
 // scrivi array comuni italiani
