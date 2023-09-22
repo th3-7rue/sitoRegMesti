@@ -18,7 +18,7 @@ for (let i = 1; i <= 12; i++) {
     mese.innerHTML += `<option value="${i}">${i}</option>`;
 }
 // stampa anni select
-for (let i = 1900; i <= 2021; i++) {
+for (let i = 1900; i <= 2023; i++) {
     anno.innerHTML += `<option value="${i}">${i}</option>`;
 }
 /*Il codice fiscale delle persone fisiche è costituito da sedici caratteri alfanumerici, ricavati in linea generale secondo l'algoritmo illustrato di seguito. Con le posizioni indicate da sinistra verso destra
@@ -144,7 +144,10 @@ Si prendono le due cifre del giorno di nascita (se è compreso tra 1 e 9 si pone
 
 calcolaGiornoSesso = (giorno, sesso) => {
     let giornoSesso = "";
-    if (giorno < 10) {
+    if (sesso == "F") {
+        giornoSesso = parseInt(giorno) + 40;
+    }
+    else if (giorno < 10) {
         giornoSesso = "0" + giorno;
     } else {
         giornoSesso = giorno;
