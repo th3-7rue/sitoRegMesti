@@ -215,28 +215,20 @@ Resto	Lettera	Resto	Lettera	Resto	Lettera	Resto	Lettera
 4	E	11	L	18	S	25	Z
 5	F	12	M	19	T		
 6	G	13	N	20	U		
-Due diverse persone potrebbero avere uguali tutte e sedici le lettere/cifre generate usando questo schema (omocodia). In questo caso, l'Agenzia delle Entrate provvede a sostituire sistematicamente i soli caratteri numerici (a partire dal carattere numerico più a destra) con una lettera, secondo la seguente tabella di corrispondenza:
-Cifra	Lettera	Cifra	Lettera	Cifra	Lettera
-0	L	4	Q	8	U
-1	M	5	R	9	V
-2	N	6	S		
-3	P	7	T		
-Dopo la sostituzione, il carattere di controllo deve essere ricalcolato.
+
 */
 controlloCF = (cf) => {
     let pari = "";
     let dispari = "";
     let controllo = "";
     pari = cf[1] + cf[3] + cf[5] + cf[7] + cf[9] + cf[11] + cf[13];
-    if (cf[15] != undefined) {
-        pari += cf[15];
-    }
+
     dispari = cf[0] + cf[2] + cf[4] + cf[6] + cf[8] + cf[10] + cf[12] + cf[14];
-    //console.log(pari);
-    //console.log(dispari);
+    console.log(pari);
+    console.log(dispari);
     // converti in numeri
-    let pariNum = "";
-    let dispariNum = "";
+    let pariNum = 0;
+    let dispariNum = 0;
     // cifre + alfabeto
     var caratteri = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H",
         "I", "J", "K", "L", "M", "N", "O", "P", "Q",
@@ -262,7 +254,7 @@ controlloCF = (cf) => {
     console.log(pariNum);
     console.log(dispariNum);
     // somma pari e dispari
-    let somma = parseInt(pariNum) + parseInt(dispariNum);
+    let somma = pariNum + dispariNum;
     console.log(somma);
     // calcola resto
     let resto = somma % 26;
@@ -289,10 +281,7 @@ btn.addEventListener("click", () => {
     let comuneCF = calcolaComune(comune.value);
     cf = cognomeCF + nomeCF + annoMeseCF + giornoSessoCF + comuneCF;
     controllo = controlloCF(cf);
-    // ricalcola controllo una seconda volta
-    cf2 = cf + controllo;
-    controllo2 = controlloCF(cf2);
-    cf += controllo2;
+    cf += controllo;
 
     risultato.innerHTML = cf;
 });
