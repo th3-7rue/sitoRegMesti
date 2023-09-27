@@ -1,5 +1,11 @@
 window.onload = function () {
-    fetch('https://jsonplaceholder.typicode.com/photos')
-        .then(response => response.json())
-        .then(json => console.log(json))
+    fetch('https://jsonplaceholder.typicode.com/photos').then(
+        function (result) {
+            return result.json()
+        }
+    ).then(
+        function (data) {
+            console.log(data)
+        }
+    )
 }
