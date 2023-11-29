@@ -9,5 +9,10 @@
   }
 </script>
 
-<input type="text" bind:value={nuovoTodo} />
-<button on:click={AddTodo}>Add</button>
+<input
+  type="text"
+  placeholder="Scrivi qui"
+  class="input input-bordered w-full max-w-xs"
+  bind:value={nuovoTodo}
+/>
+<button on:click={AddTodo} class="btn btn-secondary">Add</button>
