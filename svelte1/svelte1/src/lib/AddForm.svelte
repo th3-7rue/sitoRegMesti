@@ -4,8 +4,8 @@
   function AddTodo() {
     todos.update((old) => {
       old.push({ title: nuovoTodo, done: false });
+      return old;
     });
-    return old;
   }
 </script>
 
