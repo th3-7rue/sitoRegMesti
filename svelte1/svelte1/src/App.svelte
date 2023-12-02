@@ -6,10 +6,11 @@
 </script>
 
 <main>
+  <div class="p-3">
   <h1>TODO List App</h1>
   <TodoCounter />
   <AddForm />
-  <ListaTodo todoList={$todos} />
+  <ListaTodo todoList={$todos} /></div>
 </main>
 
 <style>
