@@ -8,11 +8,11 @@
     });
   }
 </script>
-
+<div class="flex">
 <input
   type="text"
   placeholder="Scrivi qui"
-  class="input input-bordered w-full max-w-xs"
+  class="input input-bordered w-full max-w-xs mr-1"
   bind:value={nuovoTodo}
 />
-<button on:click={AddTodo} class="btn btn-primary">Add</button>
+<button on:click={AddTodo} class="btn btn-primary">Aggiungi</button></div>
