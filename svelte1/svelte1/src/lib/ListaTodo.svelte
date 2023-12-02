@@ -4,6 +4,6 @@
   export let todoList = [];
 </script>
 
-{#each todoList as todo}
-  <TodoComponent {todo} />
+{#each todoList as todo,pos}
+  <TodoComponent {todo} {pos}/>
 {/each}
