@@ -3,5 +3,12 @@
 </script>
 
 <div>
-  {$todos.length} cose da fare
+  
+  {$todos.length} 
+  {#if $todos.length==1}
+    cosa
+  {:else}
+    cose
+  {/if}
+   da fare
 </div>
