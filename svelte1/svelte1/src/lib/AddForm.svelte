@@ -3,16 +3,22 @@
   let nuovoTodo;
   function AddTodo() {
     todos.update((old) => {
+      // prevent default form
+      event.preventDefault();
       old.push({ title: nuovoTodo, done: false });
+      // reset input
+      nuovoTodo = "";
       return old;
     });
   }
 </script>
-<div class="flex">
-<input
-  type="text"
-  placeholder="Scrivi qui"
-  class="input input-bordered w-full max-w-xs mr-1"
-  bind:value={nuovoTodo}
-/>
-<button on:click={AddTodo} class="btn btn-primary">Aggiungi</button></div>
+
+<form class="flex">
+  <input
+    type="text"
+    placeholder="Scrivi qui"
+    class="input input-bordered w-full max-w-xs mr-1"
+    bind:value={nuovoTodo}
+  />
+  <button on:click={AddTodo} class="btn btn-primary">Aggiungi</button>
+</form>
