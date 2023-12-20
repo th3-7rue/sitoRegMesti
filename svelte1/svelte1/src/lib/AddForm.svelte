@@ -5,9 +5,11 @@
     todos.update((old) => {
       // prevent default form
       event.preventDefault();
+
       old.push({ title: nuovoTodo, done: false });
       // reset input
       nuovoTodo = "";
+
       return old;
     });
   }
