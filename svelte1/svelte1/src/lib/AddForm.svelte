@@ -3,9 +3,11 @@
   let nuovoTodo;
   function AddTodo() {
     todos.update((old) => {
+
       // prevent default form
       event.preventDefault();
-
+        // if empty string
+      if (!nuovoTodo) return old;
       old.push({ title: nuovoTodo, done: false });
       // reset input
       nuovoTodo = "";
