@@ -9,7 +9,7 @@
       if (!nuovoTodo) return old;
       // update localstorage
       old.push({ title: nuovoTodo, done: false });
-            localStorage.setItem("todos", JSON.stringify(old));
+      localStorage.setItem("todos", JSON.stringify(old));
 
       // reset input
       nuovoTodo = "";
