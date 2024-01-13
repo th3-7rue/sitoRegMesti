@@ -4,8 +4,8 @@ if (!localStorage.getItem("todos")) {
 
     localStorage.setItem("todos", JSON.stringify([]));
 }
-console.log(JSON.parse(localStorage.getItem("todos")))
-
+/* console.log(JSON.parse(localStorage.getItem("todos")))
+ */
 
 export const todos = writable(
     // get from localstorage if available
