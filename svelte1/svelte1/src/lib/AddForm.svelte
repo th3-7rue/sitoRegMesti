@@ -26,5 +26,5 @@
     class="input input-bordered w-full mr-1"
     bind:value={nuovoTodo}
   />
-  <button on:click={AddTodo} class="btn btn-primary">Aggiungi</button>
+  <button on:click={AddTodo} class="btn btn-primary mr-7">Aggiungi</button>
 </form>
