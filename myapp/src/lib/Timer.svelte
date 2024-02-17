@@ -73,29 +73,34 @@
   // se tempo è a metà mostra pomodoro half
 </script>
 
-<section class="container mx-auto flex flex-col justify-center">
-  {#if pomodoroTime < POMODORO_S / 2}
-    <img class="w-10 h-10" src={pomodoroHalf} alt="Pomodoro a metà" />
-  {:else}
-    <img class="w-24 h-24" src={pomodoroPieno} alt="Pomodoro pieno" />
-  {/if}
-
-  <p class="text-verde text-9xl">
-    {formatTime(pomodoroTime)}
-  </p>
-  <button
-    class="text-verde"
-    on:click={startPomodoro}
-    disabled={currentState !== State.idle}
-  >
-    <img class="h-10" src={srcStartPause} alt="" />
-  </button>
-  <button
-    class="text-verde"
-    on:click={cancelPomodoro}
-    disabled={currentState !== State.inProgress}
-  >
-    <img class="h-10" src={stop} alt="" />
-  </button>
+<section>
+  <div class="flex justify-center items-center">
+    {#if pomodoroTime < POMODORO_S / 2}
+      <img class="w-24 h-24" src={pomodoroHalf} alt="Pomodoro a metà" />
+    {:else}
+      <img style="width: 50vh;" src={pomodoroPieno} alt="Pomodoro pieno" />
+    {/if}
+  </div>
+  <div class="flex justify-center items-center">
+    <p class="text-verde text-7xl md:text-9xl ">
+      {formatTime(pomodoroTime)}
+    </p>
+  </div>
+  <div class="flex justify-center items-center p-3">
+    <button
+      class="text-verde"
+      on:click={startPomodoro}
+      disabled={currentState !== State.idle}
+    >
+      <img class="h-10" src={srcStartPause} alt="" />
+    </button>
+    <button
+      class="text-verde ml-5"
+      on:click={cancelPomodoro}
+      disabled={currentState !== State.inProgress}
+    >
+      <img class="h-10" src={stop} alt="" />
+    </button>
+  </div>
   <!--button on:click={completePomodoro}>complete</button-->
 </section>
