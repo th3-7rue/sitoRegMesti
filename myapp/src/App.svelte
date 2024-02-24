@@ -1,5 +1,6 @@
 <script>
   let title = "Pomodoro";
+  import Info from "./lib/Info.svelte";
   //import TaskList from './TaskList.svelte';
   import Timer from "./lib/Timer.svelte";
 </script>
@@ -17,5 +18,8 @@
     <Timer />
     <!--   <TaskList />
  -->
+  </div>
+  <div>
+    <Info />
   </div>
 </main>

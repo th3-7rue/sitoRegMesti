@@ -5,13 +5,16 @@ export default {
     container: {
       center: true,
     },
-    colors: {
-      transparent: "transparent",
-      current: "currentColor",
-      'verde': '#e1f2bb',
-      'rosso-scuro': '#731702',
+
+    extend: {
+      colors: {
+        transparent: "transparent",
+        current: "currentColor",
+        'verde': '#e1f2bb',
+        'rosso-scuro': '#731702',
+        'rosso-chiaro': '#d91604',
+      },
     },
-    extend: {},
   },
   plugins: [],
 }
